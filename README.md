@@ -179,7 +179,7 @@ Pre-requis (secrets GitHub) :
 - `DOCKER_PASSWORD` (token Docker Hub)
 
 Comment obtenir le token Docker Hub :
-1. Se connecter sur Docker Hub
+1. Se connecter  sur Docker Hub
 2. Profil → **Account Settings** → **Security**
 3. **Access Tokens** → **New Access Token**
 4. Nommer le token (ex: `github-actions`) + droits `read/write`
