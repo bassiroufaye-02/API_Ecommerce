@@ -1,4 +1,4 @@
-package com.ecommerce.mulboutique.controller;
+﻿package com.ecommerce.mulboutique.controller;
 
 import com.ecommerce.mulboutique.dto.coupon.CouponDto;
 import com.ecommerce.mulboutique.dto.coupon.CreateCouponRequest;
@@ -35,31 +35,31 @@ public class CouponController {
     @Autowired
     private StoreRepository storeRepository;
 
-    @PostMapping("/api/store-owners/coupons")
+    @PostMapping("/api/v1/store-owners/coupons")
     @PreAuthorize("hasRole('STORE_OWNER') or hasRole('ADMIN')")
-    @Operation(summary = "Créer un coupon")
+    @Operation(summary = "CrÃ©er un coupon")
     public ResponseEntity<CouponDto> createCoupon(@Valid @RequestBody CreateCouponRequest request, @RequestParam Long storeId) {
         ensureStoreAccess(storeId);
         CouponDto coupon = couponService.createCoupon(request, storeId);
         return new ResponseEntity<>(coupon, HttpStatus.CREATED);
     }
 
-    @PutMapping("/api/store-owners/coupons/{id}")
+    @PutMapping("/api/v1/store-owners/coupons/{id}")
     @PreAuthorize("hasRole('STORE_OWNER') or hasRole('ADMIN')")
-    @Operation(summary = "Mettre à jour un coupon")
+    @Operation(summary = "Mettre Ã  jour un coupon")
     public ResponseEntity<CouponDto> updateCoupon(@PathVariable Long id, @Valid @RequestBody CreateCouponRequest request) {
         return ResponseEntity.ok(couponService.updateCoupon(id, request));
     }
 
-    @DeleteMapping("/api/store-owners/coupons/{id}")
+    @DeleteMapping("/api/v1/store-owners/coupons/{id}")
     @PreAuthorize("hasRole('STORE_OWNER') or hasRole('ADMIN')")
-    @Operation(summary = "Désactiver un coupon")
+    @Operation(summary = "DÃ©sactiver un coupon")
     public ResponseEntity<Void> deactivateCoupon(@PathVariable Long id) {
         couponService.deactivateCoupon(id);
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/api/store-owners/coupons")
+    @GetMapping("/api/v1/store-owners/coupons")
     @PreAuthorize("hasRole('STORE_OWNER') or hasRole('ADMIN')")
     @Operation(summary = "Lister les coupons d'une boutique")
     public ResponseEntity<List<CouponDto>> getCouponsByStore(@RequestParam Long storeId) {
@@ -67,7 +67,7 @@ public class CouponController {
         return ResponseEntity.ok(couponService.getCouponsByStore(storeId));
     }
 
-    @GetMapping("/api/coupons/validate")
+    @GetMapping("/api/v1/coupons/validate")
     @Operation(summary = "Valider un coupon")
     public ResponseEntity<String> validateCoupon(@RequestParam String code, @RequestParam Long storeId, @RequestParam(required = false) BigDecimal cartTotal) {
         Coupon coupon = couponService.validateCoupon(code, storeId, cartTotal);
@@ -83,3 +83,4 @@ public class CouponController {
         }
     }
 }
+

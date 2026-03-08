@@ -1,4 +1,4 @@
-package com.ecommerce.mulboutique.controller;
+﻿package com.ecommerce.mulboutique.controller;
 
 import com.ecommerce.mulboutique.dto.order.CreateOrderRequest;
 import com.ecommerce.mulboutique.dto.order.OrderDto;
@@ -28,7 +28,7 @@ public class OrderController {
     @Autowired
     private CurrentUserService currentUserService;
 
-    @PostMapping("/api/clients/orders")
+    @PostMapping("/api/v1/clients/orders")
     @PreAuthorize("hasRole('CLIENT')")
     @Operation(summary = "Passer une commande")
     public ResponseEntity<OrderDto> createOrder(@Valid @RequestBody CreateOrderRequest request) {
@@ -37,7 +37,7 @@ public class OrderController {
         return new ResponseEntity<>(order, HttpStatus.CREATED);
     }
 
-    @GetMapping("/api/clients/orders")
+    @GetMapping("/api/v1/clients/orders")
     @PreAuthorize("hasRole('CLIENT')")
     @Operation(summary = "Lister mes commandes")
     public ResponseEntity<List<OrderDto>> getMyOrders() {
@@ -45,7 +45,7 @@ public class OrderController {
         return ResponseEntity.ok(orderService.getOrdersByCustomer(user));
     }
 
-    @GetMapping("/api/store-owners/orders")
+    @GetMapping("/api/v1/store-owners/orders")
     @PreAuthorize("hasRole('STORE_OWNER') or hasRole('ADMIN')")
     @Operation(summary = "Lister les commandes d'une boutique")
     public ResponseEntity<List<OrderDto>> getOrdersByStore(@RequestParam Long storeId) {
@@ -53,19 +53,20 @@ public class OrderController {
         return ResponseEntity.ok(orderService.getOrdersByStoreForOwner(storeId, user));
     }
 
-    @PutMapping("/api/store-owners/orders/{orderId}/status")
+    @PutMapping("/api/v1/store-owners/orders/{orderId}/status")
     @PreAuthorize("hasRole('STORE_OWNER') or hasRole('ADMIN')")
-    @Operation(summary = "Mettre à jour le statut d'une commande")
+    @Operation(summary = "Mettre Ã  jour le statut d'une commande")
     public ResponseEntity<OrderDto> updateOrderStatus(@PathVariable Long orderId, @Valid @RequestBody UpdateOrderStatusRequest request) {
         User user = currentUserService.getCurrentUser();
         return ResponseEntity.ok(orderService.updateOrderStatus(orderId, request, user));
     }
 
-    @PutMapping("/api/store-owners/orders/{orderId}/shipping")
+    @PutMapping("/api/v1/store-owners/orders/{orderId}/shipping")
     @PreAuthorize("hasRole('STORE_OWNER') or hasRole('ADMIN')")
-    @Operation(summary = "Mettre à jour l'expédition")
+    @Operation(summary = "Mettre Ã  jour l'expÃ©dition")
     public ResponseEntity<OrderDto> updateShipping(@PathVariable Long orderId, @Valid @RequestBody UpdateShippingRequest request) {
         User user = currentUserService.getCurrentUser();
         return ResponseEntity.ok(orderService.updateShipping(orderId, request, user));
     }
 }
+

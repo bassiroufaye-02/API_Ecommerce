@@ -1,4 +1,4 @@
-package com.ecommerce.mulboutique.controller;
+﻿package com.ecommerce.mulboutique.controller;
 
 import com.ecommerce.mulboutique.dto.UploadRequest;
 import io.swagger.v3.oas.annotations.Operation;
@@ -23,7 +23,7 @@ import java.nio.file.Paths;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/uploads")
+@RequestMapping("/api/v1/uploads")
 @Tag(name = "Uploads", description = "Upload d'images produits")
 public class UploadController {
 
@@ -59,11 +59,11 @@ public class UploadController {
         Path target = dir.resolve(filename);
         Files.copy(file.getInputStream(), target);
 
-        return ResponseEntity.ok("/api/uploads/" + filename);
+        return ResponseEntity.ok("/api/v1/uploads/" + filename);
     }
 
     @GetMapping("/{filename}")
-    @Operation(summary = "Récupérer un fichier")
+    @Operation(summary = "RÃ©cupÃ©rer un fichier")
     public ResponseEntity<Resource> getFile(@PathVariable String filename) throws IOException {
         Path filePath = Paths.get(uploadDir).resolve(filename).normalize();
         if (!Files.exists(filePath)) {
@@ -81,3 +81,4 @@ public class UploadController {
                 .body(resource);
     }
 }
+

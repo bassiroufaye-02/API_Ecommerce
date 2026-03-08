@@ -55,34 +55,34 @@ src/main/java/com/ecommerce/mulboutique/
 
 ## Acces par roles (endpoints autorises)
 ### PUBLIC (non authentifie)
-- Auth: POST `/api/auth/register`, POST `/api/auth/login`, POST `/api/auth/refresh`, POST `/api/auth/logout`
-- Produits: GET `/api/products/{id}`, GET `/api/products/store/{storeId}`, GET `/api/products/category/{categoryId}`, GET `/api/products/search?...`
-- Boutiques: GET `/api/stores`, GET `/api/stores/{id}`
-- Uploads: GET `/api/uploads/{filename}`
-- Coupons: GET `/api/coupons/validate?code=&storeId=&cartTotal=`
+- Auth: POST `/api/v1/auth/register`, POST `/api/v1/auth/login`, POST `/api/v1/auth/refresh`, POST `/api/v1/auth/logout`
+- Produits: GET `/api/v1/products/{id}`, GET `/api/v1/products/store/{storeId}`, GET `/api/v1/products/category/{categoryId}`, GET `/api/v1/products/search?...`
+- Boutiques: GET `/api/v1/stores`, GET `/api/v1/stores/{id}`
+- Uploads: GET `/api/v1/uploads/{filename}`
+- Coupons: GET `/api/v1/coupons/validate?code=&storeId=&cartTotal=`
 
 ### CLIENT
-- Panier: GET `/api/clients/cart?storeId=`, POST `/api/clients/cart/items`, PUT `/api/clients/cart/items/{itemId}`, DELETE `/api/clients/cart/items/{itemId}`, DELETE `/api/clients/cart/clear?storeId=`
-- Commandes: POST `/api/clients/orders`, GET `/api/clients/orders`
-- Paiements: POST `/api/payments/initiate`, POST `/api/payments/confirm`, POST `/api/payments/fail`, POST `/api/payments/refund`
-- Profil: GET `/api/users/me`, PUT `/api/users/me`
-- Adresses: GET/POST/PUT/DELETE `/api/users/me/addresses`
-- Moyens de paiement: GET/POST/PUT/DELETE `/api/users/me/payment-methods`
+- Panier: GET `/api/v1/clients/cart?storeId=`, POST `/api/v1/clients/cart/items`, PUT `/api/v1/clients/cart/items/{itemId}`, DELETE `/api/v1/clients/cart/items/{itemId}`, DELETE `/api/v1/clients/cart/clear?storeId=`
+- Commandes: POST `/api/v1/clients/orders`, GET `/api/v1/clients/orders`
+- Paiements: POST `/api/v1/payments/initiate`, POST `/api/v1/payments/confirm`, POST `/api/v1/payments/fail`, POST `/api/v1/payments/refund`
+- Profil: GET `/api/v1/users/me`, PUT `/api/v1/users/me`
+- Adresses: GET/POST/PUT/DELETE `/api/v1/users/me/addresses`
+- Moyens de paiement: GET/POST/PUT/DELETE `/api/v1/users/me/payment-methods`
 
 ### STORE_OWNER
-- Boutiques: POST/PUT/DELETE `/api/stores`, GET `/api/stores/my-stores`
-- Categories: POST/PUT/DELETE `/api/categories`, GET `/api/categories/store/{storeId}`
-- Produits: POST/PUT/DELETE `/api/products`
-- Uploads: POST `/api/uploads`
-- Coupons: POST/PUT/DELETE/GET `/api/store-owners/coupons`
-- Commandes boutique: GET `/api/store-owners/orders?storeId=`, PUT `/api/store-owners/orders/{orderId}/status`, PUT `/api/store-owners/orders/{orderId}/shipping`
-- Stocks: GET `/api/store-owners/stock/low?storeId=`
-- Analytics: GET `/api/store-owners/analytics/store/{storeId}`, GET `/api/store-owners/analytics/store/{storeId}/export`
-- Analytics Excel: GET `/api/store-owners/analytics/store/{storeId}/export/xlsx`
+- Boutiques: POST/PUT/DELETE `/api/v1/stores`, GET `/api/v1/stores/my-stores`
+- Categories: POST/PUT/DELETE `/api/v1/categories`, GET `/api/v1/categories/store/{storeId}`
+- Produits: POST/PUT/DELETE `/api/v1/products`
+- Uploads: POST `/api/v1/uploads`
+- Coupons: POST/PUT/DELETE/GET `/api/v1/store-owners/coupons`
+- Commandes boutique: GET `/api/v1/store-owners/orders?storeId=`, PUT `/api/v1/store-owners/orders/{orderId}/status`, PUT `/api/v1/store-owners/orders/{orderId}/shipping`
+- Stocks: GET `/api/v1/store-owners/stock/low?storeId=`
+- Analytics: GET `/api/v1/store-owners/analytics/store/{storeId}`, GET `/api/v1/store-owners/analytics/store/{storeId}/export`
+- Analytics Excel: GET `/api/v1/store-owners/analytics/store/{storeId}/export/xlsx`
 
 ### ADMIN
 - Tous les endpoints STORE_OWNER + CLIENT
-- Endpoints `/api/admin/**` (reserve)
+- Endpoints `/api/v1/admin/**` (reserve)
 
 ## Base de donnees
 - Migrations Liquibase : `src/main/resources/db/changelog`
@@ -218,7 +218,7 @@ Produits:
 ## Guide de test (Swagger + ligne de commande)
 ### 1) Authentification JWT dans Swagger
 Le schema securite est `bearer` (HTTP). Dans Swagger UI:
-1. Execute `POST /api/auth/login` avec le JSON ci-dessous.
+1. Execute `POST /api/v1/auth/login` avec le JSON ci-dessous.
 2. Copie uniquement `accessToken` (pas `refreshToken`).
 3. Clique sur **Authorize** et colle **seulement le token** (sans `Bearer `).
 Swagger ajoute `Bearer` automatiquement.
@@ -233,7 +233,7 @@ Login JSON:
 
 ### 2) Ordre conseille des tests (par role)
 Store Owner / Admin:
-1. Creer une boutique (`POST /api/stores?ownerId=...`).
+1. Creer une boutique (`POST /api/v1/stores?ownerId=...`).
 2. Creer une categorie pour la boutique.
 3. Creer des produits (necessite `storeId` + `categoryId`).
 4. Tester stocks, coupons, analytics.
@@ -246,7 +246,7 @@ Client:
 
 ### 3) Comment obtenir `ownerId`
 `ownerId` est l'ID de l'utilisateur proprietaire connecte.
-Recuperer via `GET /api/users/me` apres login.
+Recuperer via `GET /api/v1/users/me` apres login.
 
 ### 4) Exemples JSON par etape
 Creer boutique (STORE_OWNER/ADMIN):
@@ -288,13 +288,13 @@ Uploader une image (STORE_OWNER/ADMIN):
 - Swagger: choisir `multipart/form-data`, champ `file` = fichier a televerser.
 - Curl (Windows PowerShell):
 ```powershell
-curl -X POST "http://localhost:8080/api/uploads" `
+curl -X POST "http://localhost:8080/api/v1/uploads" `
   -H "Authorization: Bearer <TOKEN>" `
   -F "file=@C:\chemin\vers\itelA70.jpg"
 ```
 - Curl (Linux/Mac):
 ```bash
-curl -X POST "http://localhost:8080/api/uploads" \
+curl -X POST "http://localhost:8080/api/v1/uploads" \
   -H "Authorization: Bearer <TOKEN>" \
   -F "file=@/chemin/vers/itelA70.jpg"
 ```
@@ -335,9 +335,9 @@ Mettre a jour livraison (STORE_OWNER/ADMIN):
 ### 5) Exemple ligne de commande (PowerShell)
 Login + appel securise:
 ```powershell
-$resp = Invoke-RestMethod -Method Post -Uri http://localhost:8080/api/auth/login -ContentType "application/json" -Body '{"usernameOrEmail":"boutiquier1","password":"password"}'
+$resp = Invoke-RestMethod -Method Post -Uri http://localhost:8080/api/v1/auth/login -ContentType "application/json" -Body '{"usernameOrEmail":"boutiquier1","password":"password"}'
 $token = $resp.accessToken
-Invoke-RestMethod -Method Get -Uri http://localhost:8080/api/stores/my-stores -Headers @{ Authorization = "Bearer $token" }
+Invoke-RestMethod -Method Get -Uri http://localhost:8080/api/v1/stores/my-stores -Headers @{ Authorization = "Bearer $token" }
 ```
 
 ## Tests
@@ -350,3 +350,5 @@ mvn test jacoco:report
 - Code source complet (dossier : Faye_Bassirou_M1_API_Ecommerce)
 - Documentation Swagger + README + schema BD
 - Tests
+
+

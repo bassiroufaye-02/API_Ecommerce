@@ -1,4 +1,4 @@
-package com.ecommerce.mulboutique.controller;
+﻿package com.ecommerce.mulboutique.controller;
 
 import com.ecommerce.mulboutique.dto.CategoryDto;
 import com.ecommerce.mulboutique.dto.CategoryRequest;
@@ -18,18 +18,18 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/categories")
-@Tag(name = "Catégories", description = "API pour la gestion des catégories")
+@RequestMapping("/api/v1/categories")
+@Tag(name = "CatÃ©gories", description = "API pour la gestion des catÃ©gories")
 public class CategoryController {
 
     @Autowired
     private CategoryService categoryService;
 
     @GetMapping("/store/{storeId}")
-    @Operation(summary = "Catégories d'une boutique", description = "Retourne la liste des catégories d'une boutique spécifique")
+    @Operation(summary = "CatÃ©gories d'une boutique", description = "Retourne la liste des catÃ©gories d'une boutique spÃ©cifique")
     @ApiResponses(value = {
-        @ApiResponse(responseCode = "200", description = "Liste des catégories récupérée avec succès"),
-        @ApiResponse(responseCode = "404", description = "Boutique non trouvée")
+        @ApiResponse(responseCode = "200", description = "Liste des catÃ©gories rÃ©cupÃ©rÃ©e avec succÃ¨s"),
+        @ApiResponse(responseCode = "404", description = "Boutique non trouvÃ©e")
     })
     public ResponseEntity<List<CategoryDto>> getCategoriesByStore(@PathVariable Long storeId) {
         List<CategoryDto> categories = categoryService.getCategoriesByStore(storeId);
@@ -37,10 +37,10 @@ public class CategoryController {
     }
 
     @GetMapping("/{id}")
-    @Operation(summary = "Détails d'une catégorie", description = "Retourne les détails d'une catégorie spécifique")
+    @Operation(summary = "DÃ©tails d'une catÃ©gorie", description = "Retourne les dÃ©tails d'une catÃ©gorie spÃ©cifique")
     @ApiResponses(value = {
-        @ApiResponse(responseCode = "200", description = "Catégorie trouvée"),
-        @ApiResponse(responseCode = "404", description = "Catégorie non trouvée")
+        @ApiResponse(responseCode = "200", description = "CatÃ©gorie trouvÃ©e"),
+        @ApiResponse(responseCode = "404", description = "CatÃ©gorie non trouvÃ©e")
     })
     public ResponseEntity<CategoryDto> getCategoryById(@PathVariable Long id) {
         return categoryService.getCategoryById(id)
@@ -50,11 +50,11 @@ public class CategoryController {
 
     @PostMapping
     @PreAuthorize("hasRole('STORE_OWNER') or hasRole('ADMIN')")
-    @Operation(summary = "Créer une catégorie", description = "Crée une nouvelle catégorie")
+    @Operation(summary = "CrÃ©er une catÃ©gorie", description = "CrÃ©e une nouvelle catÃ©gorie")
     @ApiResponses(value = {
-        @ApiResponse(responseCode = "201", description = "Catégorie créée avec succès"),
-        @ApiResponse(responseCode = "400", description = "Données invalides"),
-        @ApiResponse(responseCode = "403", description = "Accès refusé")
+        @ApiResponse(responseCode = "201", description = "CatÃ©gorie crÃ©Ã©e avec succÃ¨s"),
+        @ApiResponse(responseCode = "400", description = "DonnÃ©es invalides"),
+        @ApiResponse(responseCode = "403", description = "AccÃ¨s refusÃ©")
     })
     public ResponseEntity<CategoryDto> createCategory(@Valid @RequestBody CategoryRequest category,
                                                      @RequestParam Long storeId) {
@@ -64,11 +64,11 @@ public class CategoryController {
 
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('STORE_OWNER') or hasRole('ADMIN')")
-    @Operation(summary = "Mettre à jour une catégorie", description = "Met à jour les informations d'une catégorie")
+    @Operation(summary = "Mettre Ã  jour une catÃ©gorie", description = "Met Ã  jour les informations d'une catÃ©gorie")
     @ApiResponses(value = {
-        @ApiResponse(responseCode = "200", description = "Catégorie mise à jour avec succès"),
-        @ApiResponse(responseCode = "404", description = "Catégorie non trouvée"),
-        @ApiResponse(responseCode = "403", description = "Accès refusé")
+        @ApiResponse(responseCode = "200", description = "CatÃ©gorie mise Ã  jour avec succÃ¨s"),
+        @ApiResponse(responseCode = "404", description = "CatÃ©gorie non trouvÃ©e"),
+        @ApiResponse(responseCode = "403", description = "AccÃ¨s refusÃ©")
     })
     public ResponseEntity<CategoryDto> updateCategory(@PathVariable Long id,
                                                     @Valid @RequestBody CategoryRequest category) {
@@ -78,11 +78,11 @@ public class CategoryController {
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('STORE_OWNER') or hasRole('ADMIN')")
-    @Operation(summary = "Supprimer une catégorie", description = "Supprime une catégorie")
+    @Operation(summary = "Supprimer une catÃ©gorie", description = "Supprime une catÃ©gorie")
     @ApiResponses(value = {
-        @ApiResponse(responseCode = "204", description = "Catégorie supprimée avec succès"),
-        @ApiResponse(responseCode = "404", description = "Catégorie non trouvée"),
-        @ApiResponse(responseCode = "403", description = "Accès refusé")
+        @ApiResponse(responseCode = "204", description = "CatÃ©gorie supprimÃ©e avec succÃ¨s"),
+        @ApiResponse(responseCode = "404", description = "CatÃ©gorie non trouvÃ©e"),
+        @ApiResponse(responseCode = "403", description = "AccÃ¨s refusÃ©")
     })
     public ResponseEntity<Void> deleteCategory(@PathVariable Long id) {
         categoryService.deleteCategory(id);
@@ -96,3 +96,4 @@ public class CategoryController {
         return category;
     }
 }
+

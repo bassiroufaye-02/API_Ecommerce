@@ -1,4 +1,4 @@
-package com.ecommerce.mulboutique.config;
+﻿package com.ecommerce.mulboutique.config;
 
 import com.ecommerce.mulboutique.security.CustomUserDetailsService;
 import com.ecommerce.mulboutique.security.JwtAuthenticationEntryPoint;
@@ -70,19 +70,19 @@ public class SecurityConfig {
             .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(authz -> authz
-                .requestMatchers("/api/auth/**").permitAll()
+                .requestMatchers("/api/v1/auth/**").permitAll()
                 .requestMatchers("/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
-                .requestMatchers(HttpMethod.GET, "/api/uploads/**").permitAll()
-                .requestMatchers(HttpMethod.GET, "/api/products/search").permitAll()
-                .requestMatchers(HttpMethod.GET, "/api/coupons/validate").permitAll()
-                .requestMatchers(HttpMethod.GET, "/api/stores", "/api/stores/{id}").permitAll()
-                .requestMatchers(HttpMethod.GET, "/api/stores/{storeId}/products", "/api/products/{id}").permitAll()
-                .requestMatchers(HttpMethod.GET, "/api/products/store/{storeId}", "/api/products/category/{categoryId}").permitAll()
-                .requestMatchers(HttpMethod.GET, "/api/stores/{storeId}/categories").permitAll()
-                .requestMatchers(HttpMethod.GET, "/api/products/{id}/reviews").permitAll()
-                .requestMatchers("/api/admin/**").hasRole("ADMIN")
-                .requestMatchers("/api/store-owners/**").hasAnyRole("STORE_OWNER", "ADMIN")
-                .requestMatchers("/api/clients/**").hasAnyRole("CLIENT", "ADMIN")
+                .requestMatchers(HttpMethod.GET, "/api/v1/uploads/**").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/v1/products/search").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/v1/coupons/validate").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/v1/stores", "/api/v1/stores/{id}").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/v1/stores/{storeId}/products", "/api/v1/products/{id}").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/v1/products/store/{storeId}", "/api/v1/products/category/{categoryId}").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/v1/stores/{storeId}/categories").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/v1/products/{id}/reviews").permitAll()
+                .requestMatchers("/api/v1/admin/**").hasRole("ADMIN")
+                .requestMatchers("/api/v1/store-owners/**").hasAnyRole("STORE_OWNER", "ADMIN")
+                .requestMatchers("/api/v1/clients/**").hasAnyRole("CLIENT", "ADMIN")
                 .anyRequest().authenticated()
             );
 
@@ -96,7 +96,7 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        // Origines explicites (allowCredentials ne supporte pas "*") — évite "Failed to fetch" dans Swagger
+        // Origines explicites (allowCredentials ne supporte pas "*") â€” Ã©vite "Failed to fetch" dans Swagger
         configuration.setAllowedOriginPatterns(List.of(
                 "http://localhost:*",
                 "http://127.0.0.1:*",
@@ -113,3 +113,4 @@ public class SecurityConfig {
         return source;
     }
 }
+

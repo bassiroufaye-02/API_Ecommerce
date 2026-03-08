@@ -1,4 +1,4 @@
-package com.ecommerce.mulboutique.controller;
+﻿package com.ecommerce.mulboutique.controller;
 
 import com.ecommerce.mulboutique.dto.user.AddressDto;
 import com.ecommerce.mulboutique.dto.user.AddressRequest;
@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/api/v1/users")
 @Tag(name = "Utilisateurs", description = "Profil, adresses, paiements")
 public class UserController {
 
@@ -45,7 +45,7 @@ public class UserController {
     }
 
     @PutMapping("/me")
-    @Operation(summary = "Mettre à jour mon profil")
+    @Operation(summary = "Mettre Ã  jour mon profil")
     public ResponseEntity<UserProfileDto> updateProfile(@Valid @RequestBody UpdateProfileRequest request) {
         User user = currentUserService.getCurrentUser();
         User updated = userService.updateProfile(user, request);
@@ -75,7 +75,7 @@ public class UserController {
     }
 
     @PutMapping("/me/addresses/{addressId}")
-    @Operation(summary = "Mettre à jour une adresse")
+    @Operation(summary = "Mettre Ã  jour une adresse")
     public ResponseEntity<AddressDto> updateAddress(@PathVariable Long addressId, @Valid @RequestBody AddressRequest request) {
         User user = currentUserService.getCurrentUser();
         return ResponseEntity.ok(userService.updateAddress(addressId, user, request));
@@ -104,7 +104,7 @@ public class UserController {
     }
 
     @PutMapping("/me/payment-methods/{id}")
-    @Operation(summary = "Mettre à jour un moyen de paiement")
+    @Operation(summary = "Mettre Ã  jour un moyen de paiement")
     public ResponseEntity<PaymentMethodDto> updatePaymentMethod(@PathVariable Long id, @Valid @RequestBody PaymentMethodRequest request) {
         User user = currentUserService.getCurrentUser();
         return ResponseEntity.ok(userService.updatePaymentMethod(id, user, request));
@@ -118,3 +118,4 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 }
+

@@ -1,4 +1,4 @@
-package com.ecommerce.mulboutique.controller;
+﻿package com.ecommerce.mulboutique.controller;
 
 import com.ecommerce.mulboutique.dto.StoreDto;
 import com.ecommerce.mulboutique.dto.StoreRequest;
@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/stores")
+@RequestMapping("/api/v1/stores")
 @Tag(name = "Boutiques", description = "API pour la gestion des boutiques")
 public class StoreController {
 
@@ -35,7 +35,7 @@ public class StoreController {
     @GetMapping
     @Operation(summary = "Lister toutes les boutiques actives", description = "Retourne la liste de toutes les boutiques actives")
     @ApiResponses(value = {
-        @ApiResponse(responseCode = "200", description = "Liste des boutiques récupérée avec succès")
+        @ApiResponse(responseCode = "200", description = "Liste des boutiques rÃ©cupÃ©rÃ©e avec succÃ¨s")
     })
     public ResponseEntity<List<StoreDto>> getAllActiveStores() {
         List<StoreDto> stores = storeService.getAllActiveStores();
@@ -43,10 +43,10 @@ public class StoreController {
     }
 
     @GetMapping("/{id}")
-    @Operation(summary = "Détails d'une boutique", description = "Retourne les détails d'une boutique spécifique")
+    @Operation(summary = "DÃ©tails d'une boutique", description = "Retourne les dÃ©tails d'une boutique spÃ©cifique")
     @ApiResponses(value = {
-        @ApiResponse(responseCode = "200", description = "Boutique trouvée"),
-        @ApiResponse(responseCode = "404", description = "Boutique non trouvée")
+        @ApiResponse(responseCode = "200", description = "Boutique trouvÃ©e"),
+        @ApiResponse(responseCode = "404", description = "Boutique non trouvÃ©e")
     })
     public ResponseEntity<StoreDto> getStoreById(@PathVariable Long id) {
         return storeService.getStoreById(id)
@@ -56,11 +56,11 @@ public class StoreController {
 
     @PostMapping
     @PreAuthorize("hasRole('STORE_OWNER') or hasRole('ADMIN')")
-    @Operation(summary = "Créer une boutique", description = "Crée une nouvelle boutique")
+    @Operation(summary = "CrÃ©er une boutique", description = "CrÃ©e une nouvelle boutique")
     @ApiResponses(value = {
-        @ApiResponse(responseCode = "201", description = "Boutique créée avec succès"),
-        @ApiResponse(responseCode = "400", description = "Données invalides"),
-        @ApiResponse(responseCode = "403", description = "Accès refusé")
+        @ApiResponse(responseCode = "201", description = "Boutique crÃ©Ã©e avec succÃ¨s"),
+        @ApiResponse(responseCode = "400", description = "DonnÃ©es invalides"),
+        @ApiResponse(responseCode = "403", description = "AccÃ¨s refusÃ©")
     })
     public ResponseEntity<StoreDto> createStore(@Valid @RequestBody StoreRequest store,
                                              @RequestParam Long ownerId) {
@@ -74,11 +74,11 @@ public class StoreController {
 
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('STORE_OWNER') or hasRole('ADMIN')")
-    @Operation(summary = "Mettre à jour une boutique", description = "Met à jour les informations d'une boutique")
+    @Operation(summary = "Mettre Ã  jour une boutique", description = "Met Ã  jour les informations d'une boutique")
     @ApiResponses(value = {
-        @ApiResponse(responseCode = "200", description = "Boutique mise à jour avec succès"),
-        @ApiResponse(responseCode = "404", description = "Boutique non trouvée"),
-        @ApiResponse(responseCode = "403", description = "Accès refusé")
+        @ApiResponse(responseCode = "200", description = "Boutique mise Ã  jour avec succÃ¨s"),
+        @ApiResponse(responseCode = "404", description = "Boutique non trouvÃ©e"),
+        @ApiResponse(responseCode = "403", description = "AccÃ¨s refusÃ©")
     })
     public ResponseEntity<StoreDto> updateStore(@PathVariable Long id,
                                              @Valid @RequestBody StoreRequest store) {
@@ -89,11 +89,11 @@ public class StoreController {
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('STORE_OWNER') or hasRole('ADMIN')")
-    @Operation(summary = "Supprimer une boutique", description = "Désactive une boutique (suppression logique)")
+    @Operation(summary = "Supprimer une boutique", description = "DÃ©sactive une boutique (suppression logique)")
     @ApiResponses(value = {
-        @ApiResponse(responseCode = "204", description = "Boutique supprimée avec succès"),
-        @ApiResponse(responseCode = "404", description = "Boutique non trouvée"),
-        @ApiResponse(responseCode = "403", description = "Accès refusé")
+        @ApiResponse(responseCode = "204", description = "Boutique supprimÃ©e avec succÃ¨s"),
+        @ApiResponse(responseCode = "404", description = "Boutique non trouvÃ©e"),
+        @ApiResponse(responseCode = "403", description = "AccÃ¨s refusÃ©")
     })
     public ResponseEntity<Void> deleteStore(@PathVariable Long id) {
         ensureOwnerOrAdmin(id);
@@ -103,10 +103,10 @@ public class StoreController {
 
     @GetMapping("/my-stores")
     @PreAuthorize("hasRole('STORE_OWNER')")
-    @Operation(summary = "Mes boutiques", description = "Retourne les boutiques du propriétaire connecté")
+    @Operation(summary = "Mes boutiques", description = "Retourne les boutiques du propriÃ©taire connectÃ©")
     @ApiResponses(value = {
-        @ApiResponse(responseCode = "200", description = "Liste des boutiques récupérée avec succès"),
-        @ApiResponse(responseCode = "403", description = "Accès refusé")
+        @ApiResponse(responseCode = "200", description = "Liste des boutiques rÃ©cupÃ©rÃ©e avec succÃ¨s"),
+        @ApiResponse(responseCode = "403", description = "AccÃ¨s refusÃ©")
     })
     public ResponseEntity<List<StoreDto>> getMyStores() {
         User user = currentUserService.getCurrentUser();
@@ -119,7 +119,7 @@ public class StoreController {
             return;
         }
         StoreDto store = storeService.getStoreById(storeId)
-                .orElseThrow(() -> new NotFoundException("Boutique non trouvÃ©e"));
+                .orElseThrow(() -> new NotFoundException("Boutique non trouvÃƒÂ©e"));
         if (!store.getOwnerId().equals(user.getId())) {
             throw new ForbiddenException("Acces refuse");
         }
@@ -139,3 +139,4 @@ public class StoreController {
         return store;
     }
 }
+

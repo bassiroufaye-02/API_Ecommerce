@@ -1,4 +1,4 @@
-package com.ecommerce.mulboutique.controller;
+﻿package com.ecommerce.mulboutique.controller;
 
 import com.ecommerce.mulboutique.dto.ProductDto;
 import com.ecommerce.mulboutique.dto.ProductRequest;
@@ -22,7 +22,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/products")
+@RequestMapping("/api/v1/products")
 @Tag(name = "Produits", description = "API pour la gestion des produits")
 public class ProductController {
 
@@ -30,10 +30,10 @@ public class ProductController {
     private ProductService productService;
 
     @GetMapping("/store/{storeId}")
-    @Operation(summary = "Produits d'une boutique", description = "Retourne la liste des produits d'une boutique spécifique")
+    @Operation(summary = "Produits d'une boutique", description = "Retourne la liste des produits d'une boutique spÃ©cifique")
     @ApiResponses(value = {
-        @ApiResponse(responseCode = "200", description = "Liste des produits récupérée avec succès"),
-        @ApiResponse(responseCode = "404", description = "Boutique non trouvée")
+        @ApiResponse(responseCode = "200", description = "Liste des produits rÃ©cupÃ©rÃ©e avec succÃ¨s"),
+        @ApiResponse(responseCode = "404", description = "Boutique non trouvÃ©e")
     })
     public ResponseEntity<List<ProductDto>> getProductsByStore(@PathVariable Long storeId) {
         List<ProductDto> products = productService.getProductsByStore(storeId);
@@ -41,10 +41,10 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    @Operation(summary = "Détails d'un produit", description = "Retourne les détails d'un produit spécifique")
+    @Operation(summary = "DÃ©tails d'un produit", description = "Retourne les dÃ©tails d'un produit spÃ©cifique")
     @ApiResponses(value = {
-        @ApiResponse(responseCode = "200", description = "Produit trouvé"),
-        @ApiResponse(responseCode = "404", description = "Produit non trouvé")
+        @ApiResponse(responseCode = "200", description = "Produit trouvÃ©"),
+        @ApiResponse(responseCode = "404", description = "Produit non trouvÃ©")
     })
     public ResponseEntity<ProductDto> getProductById(@PathVariable Long id) {
         return productService.getProductById(id)
@@ -53,9 +53,9 @@ public class ProductController {
     }
 
     @GetMapping("/category/{categoryId}")
-    @Operation(summary = "Produits par catégorie", description = "Retourne la liste des produits d'une catégorie spécifique")
+    @Operation(summary = "Produits par catÃ©gorie", description = "Retourne la liste des produits d'une catÃ©gorie spÃ©cifique")
     @ApiResponses(value = {
-        @ApiResponse(responseCode = "200", description = "Liste des produits récupérée avec succès")
+        @ApiResponse(responseCode = "200", description = "Liste des produits rÃ©cupÃ©rÃ©e avec succÃ¨s")
     })
     public ResponseEntity<List<ProductDto>> getProductsByCategory(@PathVariable Long categoryId) {
         List<ProductDto> products = productService.getProductsByCategory(categoryId);
@@ -63,9 +63,9 @@ public class ProductController {
     }
 
     @GetMapping("/search")
-    @Operation(summary = "Recherche avancée", description = "Recherche multicritaire avec pagination et tri")
+    @Operation(summary = "Recherche avancÃ©e", description = "Recherche multicritaire avec pagination et tri")
     @ApiResponses(value = {
-        @ApiResponse(responseCode = "200", description = "Résultats de recherche")
+        @ApiResponse(responseCode = "200", description = "RÃ©sultats de recherche")
     })
     public ResponseEntity<Page<ProductDto>> searchProducts(
             @RequestParam(required = false) String q,
@@ -87,11 +87,11 @@ public class ProductController {
 
     @PostMapping
     @PreAuthorize("hasRole('STORE_OWNER') or hasRole('ADMIN')")
-    @Operation(summary = "Créer un produit", description = "Crée un nouveau produit")
+    @Operation(summary = "CrÃ©er un produit", description = "CrÃ©e un nouveau produit")
     @ApiResponses(value = {
-        @ApiResponse(responseCode = "201", description = "Produit créé avec succès"),
-        @ApiResponse(responseCode = "400", description = "Données invalides"),
-        @ApiResponse(responseCode = "403", description = "Accès refusé")
+        @ApiResponse(responseCode = "201", description = "Produit crÃ©Ã© avec succÃ¨s"),
+        @ApiResponse(responseCode = "400", description = "DonnÃ©es invalides"),
+        @ApiResponse(responseCode = "403", description = "AccÃ¨s refusÃ©")
     })
     public ResponseEntity<ProductDto> createProduct(@Valid @RequestBody ProductRequest product,
                                                   @RequestParam Long storeId,
@@ -102,11 +102,11 @@ public class ProductController {
 
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('STORE_OWNER') or hasRole('ADMIN')")
-    @Operation(summary = "Mettre à jour un produit", description = "Met à jour les informations d'un produit")
+    @Operation(summary = "Mettre Ã  jour un produit", description = "Met Ã  jour les informations d'un produit")
     @ApiResponses(value = {
-        @ApiResponse(responseCode = "200", description = "Produit mis à jour avec succès"),
-        @ApiResponse(responseCode = "404", description = "Produit non trouvé"),
-        @ApiResponse(responseCode = "403", description = "Accès refusé")
+        @ApiResponse(responseCode = "200", description = "Produit mis Ã  jour avec succÃ¨s"),
+        @ApiResponse(responseCode = "404", description = "Produit non trouvÃ©"),
+        @ApiResponse(responseCode = "403", description = "AccÃ¨s refusÃ©")
     })
     public ResponseEntity<ProductDto> updateProduct(@PathVariable Long id,
                                                    @Valid @RequestBody ProductRequest product) {
@@ -116,11 +116,11 @@ public class ProductController {
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('STORE_OWNER') or hasRole('ADMIN')")
-    @Operation(summary = "Supprimer un produit", description = "Désactive un produit (suppression logique)")
+    @Operation(summary = "Supprimer un produit", description = "DÃ©sactive un produit (suppression logique)")
     @ApiResponses(value = {
-        @ApiResponse(responseCode = "204", description = "Produit supprimé avec succès"),
-        @ApiResponse(responseCode = "404", description = "Produit non trouvé"),
-        @ApiResponse(responseCode = "403", description = "Accès refusé")
+        @ApiResponse(responseCode = "204", description = "Produit supprimÃ© avec succÃ¨s"),
+        @ApiResponse(responseCode = "404", description = "Produit non trouvÃ©"),
+        @ApiResponse(responseCode = "403", description = "AccÃ¨s refusÃ©")
     })
     public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
         productService.deleteProduct(id);
@@ -135,7 +135,7 @@ public class ProductController {
         product.setStockQuantity(request.getStockQuantity());
         String imageUrl = request.getImageUrl();
         if (imageUrl == null || imageUrl.trim().isEmpty()) {
-            imageUrl = "/api/uploads/UPLOAD.jpg";
+            imageUrl = "/api/v1/uploads/UPLOAD.jpg";
         }
         product.setImageUrl(imageUrl);
         product.setSku(request.getSku());
@@ -145,3 +145,4 @@ public class ProductController {
         return product;
     }
 }
+

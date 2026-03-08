@@ -1,4 +1,4 @@
-package com.ecommerce.mulboutique.controller;
+﻿package com.ecommerce.mulboutique.controller;
 
 import com.ecommerce.mulboutique.dto.payment.PaymentRequest;
 import com.ecommerce.mulboutique.dto.payment.PaymentResponse;
@@ -14,7 +14,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/payments")
+@RequestMapping("/api/v1/payments")
 @Tag(name = "Paiements", description = "Simulation de paiement")
 public class PaymentController {
 
@@ -42,7 +42,7 @@ public class PaymentController {
 
     @PostMapping("/fail")
     @PreAuthorize("hasRole('CLIENT') or hasRole('ADMIN')")
-    @Operation(summary = "Paiement échoué")
+    @Operation(summary = "Paiement Ã©chouÃ©")
     public ResponseEntity<PaymentResponse> fail(@Valid @RequestBody PaymentRequest request) {
         User user = currentUserService.getCurrentUser();
         return ResponseEntity.ok(paymentService.failPayment(request.getOrderId(), user));
@@ -56,3 +56,4 @@ public class PaymentController {
         return ResponseEntity.ok(paymentService.refundPayment(request.getOrderId(), user));
     }
 }
+

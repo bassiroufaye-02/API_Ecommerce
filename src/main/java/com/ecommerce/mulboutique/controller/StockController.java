@@ -1,4 +1,4 @@
-package com.ecommerce.mulboutique.controller;
+﻿package com.ecommerce.mulboutique.controller;
 
 import com.ecommerce.mulboutique.dto.ProductDto;
 import com.ecommerce.mulboutique.entity.Store;
@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/store-owners/stock")
+@RequestMapping("/api/v1/store-owners/stock")
 @Tag(name = "Stocks", description = "Suivi des stocks")
 public class StockController {
 
@@ -40,7 +40,7 @@ public class StockController {
 
     @GetMapping("/low")
     @PreAuthorize("hasRole('STORE_OWNER') or hasRole('ADMIN')")
-    @Operation(summary = "Produits à stock faible")
+    @Operation(summary = "Produits Ã  stock faible")
     public ResponseEntity<List<ProductDto>> getLowStock(@RequestParam Long storeId) {
         User user = currentUserService.getCurrentUser();
         Store store = storeRepository.findById(storeId)
@@ -51,3 +51,4 @@ public class StockController {
         return ResponseEntity.ok(productService.getLowStockProducts(storeId, lowStockThreshold));
     }
 }
+

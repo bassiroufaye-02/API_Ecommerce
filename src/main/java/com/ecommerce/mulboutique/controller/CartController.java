@@ -1,4 +1,4 @@
-package com.ecommerce.mulboutique.controller;
+﻿package com.ecommerce.mulboutique.controller;
 
 import com.ecommerce.mulboutique.dto.cart.AddToCartRequest;
 import com.ecommerce.mulboutique.dto.cart.CartDto;
@@ -15,7 +15,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/clients/cart")
+@RequestMapping("/api/v1/clients/cart")
 @Tag(name = "Panier", description = "Gestion du panier client")
 public class CartController {
 
@@ -44,7 +44,7 @@ public class CartController {
 
     @PutMapping("/items/{itemId}")
     @PreAuthorize("hasRole('CLIENT')")
-    @Operation(summary = "Mettre à jour un item du panier")
+    @Operation(summary = "Mettre Ã  jour un item du panier")
     public ResponseEntity<CartDto> updateItem(@PathVariable Long itemId, @Valid @RequestBody UpdateCartItemRequest request) {
         User user = currentUserService.getCurrentUser();
         return ResponseEntity.ok(cartService.updateItem(itemId, request.getQuantity(), user));
@@ -66,3 +66,4 @@ public class CartController {
         return ResponseEntity.ok(cartService.clearCart(storeId, user));
     }
 }
+

@@ -1,4 +1,4 @@
-package com.ecommerce.mulboutique.controller;
+﻿package com.ecommerce.mulboutique.controller;
 
 import com.ecommerce.mulboutique.dto.analytics.AnalyticsResponse;
 import com.ecommerce.mulboutique.entity.Store;
@@ -24,7 +24,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 @RestController
-@RequestMapping("/api/store-owners/analytics")
+@RequestMapping("/api/v1/store-owners/analytics")
 @Tag(name = "Analytics", description = "Statistiques boutique")
 public class AnalyticsController {
 
@@ -160,3 +160,4 @@ public class AnalyticsController {
         }
     }
 }
+

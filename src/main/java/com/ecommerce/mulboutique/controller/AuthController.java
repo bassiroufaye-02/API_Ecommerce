@@ -1,4 +1,4 @@
-package com.ecommerce.mulboutique.controller;
+﻿package com.ecommerce.mulboutique.controller;
 
 import com.ecommerce.mulboutique.dto.auth.JwtResponse;
 import com.ecommerce.mulboutique.dto.auth.LoginRequest;
@@ -23,7 +23,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/api/v1/auth")
 @Tag(name = "Authentification", description = "API pour l'authentification des utilisateurs")
 public class AuthController {
 
@@ -39,9 +39,9 @@ public class AuthController {
     @PostMapping("/login")
     @Operation(summary = "Connexion d'un utilisateur", description = "Authentifie un utilisateur et retourne un token JWT")
     @ApiResponses(value = {
-        @ApiResponse(responseCode = "200", description = "Connexion réussie"),
+        @ApiResponse(responseCode = "200", description = "Connexion rÃ©ussie"),
         @ApiResponse(responseCode = "401", description = "Identifiants invalides"),
-        @ApiResponse(responseCode = "400", description = "Requête invalide")
+        @ApiResponse(responseCode = "400", description = "RequÃªte invalide")
     })
     public ResponseEntity<JwtResponse> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
@@ -73,31 +73,31 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    @Operation(summary = "Inscription d'un nouvel utilisateur", description = "Crée un nouveau compte utilisateur")
+    @Operation(summary = "Inscription d'un nouvel utilisateur", description = "CrÃ©e un nouveau compte utilisateur")
     @ApiResponses(value = {
-        @ApiResponse(responseCode = "201", description = "Utilisateur créé avec succès"),
-        @ApiResponse(responseCode = "400", description = "Données utilisateur invalides"),
-        @ApiResponse(responseCode = "409", description = "Utilisateur déjà existant")
+        @ApiResponse(responseCode = "201", description = "Utilisateur crÃ©Ã© avec succÃ¨s"),
+        @ApiResponse(responseCode = "400", description = "DonnÃ©es utilisateur invalides"),
+        @ApiResponse(responseCode = "409", description = "Utilisateur dÃ©jÃ  existant")
     })
     public ResponseEntity<String> registerUser(@Valid @RequestBody SignUpRequest signUpRequest) {
 
         if (authService.existsByUsername(signUpRequest.getUsername())) {
-            return new ResponseEntity<>("Nom d'utilisateur déjà pris!", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Nom d'utilisateur dÃ©jÃ  pris!", HttpStatus.BAD_REQUEST);
         }
 
         if (authService.existsByEmail(signUpRequest.getEmail())) {
-            return new ResponseEntity<>("Email déjà utilisé!", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Email dÃ©jÃ  utilisÃ©!", HttpStatus.BAD_REQUEST);
         }
 
         authService.createUser(signUpRequest);
 
-        return new ResponseEntity<>("Utilisateur enregistré avec succès!", HttpStatus.CREATED);
+        return new ResponseEntity<>("Utilisateur enregistrÃ© avec succÃ¨s!", HttpStatus.CREATED);
     }
 
     @PostMapping("/refresh")
-    @Operation(summary = "Rafraîchir le token", description = "Génère un nouveau token JWT à partir du refresh token")
+    @Operation(summary = "RafraÃ®chir le token", description = "GÃ©nÃ¨re un nouveau token JWT Ã  partir du refresh token")
     @ApiResponses(value = {
-        @ApiResponse(responseCode = "200", description = "Token rafraîchi avec succès"),
+        @ApiResponse(responseCode = "200", description = "Token rafraÃ®chi avec succÃ¨s"),
         @ApiResponse(responseCode = "401", description = "Refresh token invalide")
     })
     public ResponseEntity<JwtResponse> refreshToken(@RequestHeader("Authorization") String refreshToken) {
@@ -119,7 +119,7 @@ public class AuthController {
         String newJwt = tokenProvider.generateTokenFromUsername(username);
 
         User user = authService.findByUsernameOrEmail(username)
-            .orElseThrow(() -> new NotFoundException("Utilisateur non trouvé"));
+            .orElseThrow(() -> new NotFoundException("Utilisateur non trouvÃ©"));
 
         return ResponseEntity.ok(new JwtResponse(
             newJwt,
@@ -135,12 +135,13 @@ public class AuthController {
     }
 
     @PostMapping("/logout")
-    @Operation(summary = "Déconnexion", description = "Invalide le token côté client (JWT stateless)")
+    @Operation(summary = "DÃ©connexion", description = "Invalide le token cÃ´tÃ© client (JWT stateless)")
     @ApiResponses(value = {
-        @ApiResponse(responseCode = "200", description = "Déconnexion réussie")
+        @ApiResponse(responseCode = "200", description = "DÃ©connexion rÃ©ussie")
     })
     public ResponseEntity<String> logout() {
-        return ResponseEntity.ok("Déconnecté");
+        return ResponseEntity.ok("DÃ©connectÃ©");
     }
 }
+
 
