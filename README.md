@@ -13,7 +13,7 @@ API REST professionnelle pour une plateforme e-commerce multi-boutiques. Archite
 - Swagger / OpenAPI 3
 - JUnit 5 + JaCoCo
 
-## Fonctionnalites (exigences)
+## Fonctionnalites 
 - Authentification : inscription, login, refresh, logout
 - Roles : CLIENT, STORE_OWNER, ADMIN
 - Catalogue produits : CRUD + recherche avancee (texte, prix, categorie, stock, tri, pagination)
@@ -346,6 +346,7 @@ Mettre a jour livraison (STORE_OWNER/ADMIN):
 ```
 
 ### 5) Exemple ligne de commande (PowerShell)
+
 Login + appel securise:
 ```powershell
 $resp = Invoke-RestMethod -Method Post -Uri http://localhost:8080/api/v1/auth/login -ContentType "application/json" -Body '{"usernameOrEmail":"boutiquier1","password":"password"}'
@@ -360,7 +361,7 @@ mvn test jacoco:report
 ```
 
 ## Livrables
-- Code source complet (dossier : Faye_Bassirou_M1_API_Ecommerce)
+- Code source complet (dossier: Faye_Bassirou_M1_API_Ecommerce)
 - Documentation Swagger + README + schema BD
 - Tests
 
