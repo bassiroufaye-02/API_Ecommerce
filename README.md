@@ -178,6 +178,18 @@ Pre-requis (secrets GitHub) :
 - `DOCKER_USERNAME`
 - `DOCKER_PASSWORD` (token Docker Hub)
 
+Comment obtenir le token Docker Hub :
+1. Se connecter sur Docker Hub
+2. Profil → **Account Settings** → **Security**
+3. **Access Tokens** → **New Access Token**
+4. Nommer le token (ex: `github-actions`) + droits `read/write`
+5. **Generate** puis copier le token
+
+Configuration des secrets GitHub :
+1. GitHub → Settings → **Secrets and variables** → **Actions**
+2. Ajouter `DOCKER_USERNAME` = votre username Docker Hub
+3. Ajouter `DOCKER_PASSWORD` = le token Docker Hub (Access Token)
+
 Verification :
 1. GitHub → **Actions** → **CD**
 2. Verifier le statut "Success"
@@ -351,5 +363,4 @@ mvn test jacoco:report
 - Code source complet (dossier : Faye_Bassirou_M1_API_Ecommerce)
 - Documentation Swagger + README + schema BD
 - Tests
-
 
