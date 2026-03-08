@@ -260,7 +260,7 @@ Creer boutique (STORE_OWNER/ADMIN):
   "address": "1 avenue Test",
   "city": "Dakar",
   "country": "Senegal",
-  "postalCode": "11000"
+  "postalCode": "24000"
 }
 ```
 
