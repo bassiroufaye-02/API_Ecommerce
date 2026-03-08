@@ -40,6 +40,9 @@ public class SecurityConfig {
     @Autowired
     private RateLimitingFilter rateLimitingFilter;
 
+    @Autowired
+    private ApiVersionRedirectFilter apiVersionRedirectFilter;
+
     @Bean
     public JwtAuthenticationFilter authenticationJwtTokenFilter() {
         return new JwtAuthenticationFilter();
@@ -87,6 +90,7 @@ public class SecurityConfig {
             );
 
         http.authenticationProvider(authenticationProvider());
+        http.addFilterBefore(apiVersionRedirectFilter, UsernamePasswordAuthenticationFilter.class);
         http.addFilterBefore(rateLimitingFilter, UsernamePasswordAuthenticationFilter.class);
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 

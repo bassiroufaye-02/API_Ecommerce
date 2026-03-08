@@ -54,6 +54,7 @@ src/main/java/com/ecommerce/mulboutique/
 - Sanitization des champs texte (anti-XSS)
 
 ## Acces par roles (endpoints autorises)
+Note : les anciennes routes `/api/...` redirigent automatiquement vers `/api/v1/...`.
 ### PUBLIC (non authentifie)
 - Auth: POST `/api/v1/auth/register`, POST `/api/v1/auth/login`, POST `/api/v1/auth/refresh`, POST `/api/v1/auth/logout`
 - Produits: GET `/api/v1/products/{id}`, GET `/api/v1/products/store/{storeId}`, GET `/api/v1/products/category/{categoryId}`, GET `/api/v1/products/search?...`
