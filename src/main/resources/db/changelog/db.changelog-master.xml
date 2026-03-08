@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
+
+    <include file="changelog/20240301-01-create-users-table.xml" relativeToChangelogFile="true"/>
+    <include file="changelog/20240301-02-create-stores-table.xml" relativeToChangelogFile="true"/>
+    <include file="changelog/20240301-03-create-categories-table.xml" relativeToChangelogFile="true"/>
+    <include file="changelog/20240301-04-create-products-table.xml" relativeToChangelogFile="true"/>
+    <include file="changelog/20240301-05-create-orders-table.xml" relativeToChangelogFile="true"/>
+    <include file="changelog/20240301-06-create-order-items-table.xml" relativeToChangelogFile="true"/>
+    <include file="changelog/20240301-07-create-coupons-table.xml" relativeToChangelogFile="true"/>
+    <include file="changelog/20240301-08-create-shopping-cart-table.xml" relativeToChangelogFile="true"/>
+    <include file="changelog/20240301-09-create-cart-items-table.xml" relativeToChangelogFile="true"/>
+    <include file="changelog/20240301-10-create-reviews-table.xml" relativeToChangelogFile="true"/>
+    <include file="changelog/20240301-11-insert-sample-data.xml" relativeToChangelogFile="true"/>
+    <include file="changelog/20260304-12-add-addresses-payments-shipping.xml" relativeToChangelogFile="true"/>
+    <include file="changelog/20260307-13-add-shipping-method.xml" relativeToChangelogFile="true"/>
+
+</databaseChangeLog>

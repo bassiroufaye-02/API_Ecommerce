@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
+
+    <changeSet id="create-stores-table" author="ecommerce-api">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="stores"/>
+            </not>
+        </preConditions>
+        <createTable tableName="stores">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="TEXT"/>
+            <column name="logo_url" type="VARCHAR(255)"/>
+            <column name="contact_email" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="contact_phone" type="VARCHAR(20)"/>
+            <column name="address" type="VARCHAR(255)"/>
+            <column name="city" type="VARCHAR(100)"/>
+            <column name="country" type="VARCHAR(100)"/>
+            <column name="postal_code" type="VARCHAR(20)"/>
+            <column name="owner_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_active" type="BOOLEAN" defaultValueBoolean="true">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint
+                baseTableName="stores"
+                baseColumnNames="owner_id"
+                referencedTableName="users"
+                referencedColumnNames="id"
+                constraintName="fk_stores_owner"
+                onDelete="CASCADE"/>
+
+        <createIndex tableName="stores" indexName="idx_stores_owner">
+            <column name="owner_id"/>
+        </createIndex>
+
+        <createIndex tableName="stores" indexName="idx_stores_active">
+            <column name="is_active"/>
+        </createIndex>
+    </changeSet>
+
+</databaseChangeLog>

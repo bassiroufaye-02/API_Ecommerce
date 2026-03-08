@@ -1,0 +1,11 @@
+# IDE
+.idea/
+*.iml
+
+# Build
+target/
+*.log
+
+# OS
+Thumbs.db
+Desktop.ini

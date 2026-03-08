@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
+
+    <changeSet id="create-coupons-table" author="ecommerce-api">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="coupons"/>
+            </not>
+        </preConditions>
+        <createTable tableName="coupons">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="code" type="VARCHAR(20)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="description" type="TEXT"/>
+            <column name="discount_type" type="ENUM('PERCENTAGE', 'FIXED_AMOUNT')">
+                <constraints nullable="false"/>
+            </column>
+            <column name="discount_value" type="DECIMAL(10,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="minimum_amount" type="DECIMAL(10,2)" defaultValue="0.00">
+                <constraints nullable="false"/>
+            </column>
+            <column name="maximum_discount" type="DECIMAL(10,2)"/>
+            <column name="usage_limit" type="INT"/>
+            <column name="usage_count" type="INT" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="store_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_active" type="BOOLEAN" defaultValueBoolean="true">
+                <constraints nullable="false"/>
+            </column>
+            <column name="valid_from" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="valid_until" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint
+                baseTableName="coupons"
+                baseColumnNames="store_id"
+                referencedTableName="stores"
+                referencedColumnNames="id"
+                constraintName="fk_coupons_store"
+                onDelete="CASCADE"/>
+
+        <createIndex tableName="coupons" indexName="idx_coupons_store">
+            <column name="store_id"/>
+        </createIndex>
+
+        <createIndex tableName="coupons" indexName="idx_coupons_code">
+            <column name="code"/>
+        </createIndex>
+
+        <createIndex tableName="coupons" indexName="idx_coupons_active">
+            <column name="is_active"/>
+        </createIndex>
+
+        <createIndex tableName="coupons" indexName="idx_coupons_validity">
+            <column name="valid_from"/>
+            <column name="valid_until"/>
+        </createIndex>
+    </changeSet>
+
+</databaseChangeLog>

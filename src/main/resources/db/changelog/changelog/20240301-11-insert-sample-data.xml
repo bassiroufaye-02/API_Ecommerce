@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
+
+    <changeSet id="insert-sample-users" author="system">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="users"/>
+            </not>
+        </preConditions>
+        <sql>
+            INSERT INTO users (username, email, password, first_name, last_name, role, created_at, updated_at) VALUES
+            ('admin', 'admin@ecommerce.com', '$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2uheWG/igi.', 'Admin', 'User', 'ADMIN', NOW(), NOW()),
+            ('boutiquier1', 'boutiquier1@mulboutique.sn', '$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2uheWG/igi.', 'Mamadou', 'Diop', 'STORE_OWNER', NOW(), NOW()),
+            ('client1', 'client1@mulboutique.sn', '$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2uheWG/igi.', 'Awa', 'Ndiaye', 'CLIENT', NOW(), NOW());
+        </sql>
+    </changeSet>
+
+    <changeSet id="insert-sample-stores" author="system">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="stores"/>
+            </not>
+        </preConditions>
+        <sql>
+            INSERT INTO stores (name, description, contact_email, contact_phone, address, city, country, postal_code, owner_id, is_active, created_at, updated_at) VALUES
+            ('Tech Dakar', 'Boutique de produits technologiques', 'contact@techdakar.sn', '221771234567', '12 Avenue Cheikh Anta Diop', 'Dakar', 'Senegal', '11000', 2, TRUE, NOW(), NOW()),
+            ('Boutique Paris Mode', 'Mode et vetements', 'contact@parismode.fr', '33123456789', '8 Rue de Rivoli', 'Paris', 'France', '75004', 2, TRUE, NOW(), NOW());
+        </sql>
+    </changeSet>
+
+    <changeSet id="insert-sample-categories" author="system">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="categories"/>
+            </not>
+        </preConditions>
+        <sql>
+            INSERT INTO categories (name, description, store_id, created_at, updated_at) VALUES
+            ('Telephones', 'Telephones mobiles et smartphones', 1, NOW(), NOW()),
+            ('Ordinateurs', 'Ordinateurs portables et de bureau', 1, NOW(), NOW()),
+            ('Vetements Homme', 'Vetements pour hommes', 2, NOW(), NOW()),
+            ('Vetements Femme', 'Vetements pour femmes', 2, NOW(), NOW());
+        </sql>
+    </changeSet>
+
+    <changeSet id="insert-sample-products" author="system">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="products"/>
+            </not>
+        </preConditions>
+        <sql>
+            INSERT INTO products (name, description, price, stock_quantity, image_url, sku, is_active, category_id, store_id, created_at, updated_at) VALUES
+            ('Telephone Itel A70', 'Telephone abordable', 89.99, 60, './image/telephone.png', 'ITELA70', TRUE, 1, 1, NOW(), NOW()),
+            ('Samsung Galaxy A15', 'Smartphone populaire', 179.99, 40, './image/galaxy_a15.png', 'GALAXYA15', TRUE, 1, 1, NOW(), NOW()),
+            ('HP EliteBook 840', 'Ordinateur portable professionnel', 799.99, 15, './image/elitebook840.png', 'ELITEBOOK840', TRUE, 2, 1, NOW(), NOW()),
+            ('Boubou Traditionnel', 'Tenue traditionnelle senegalaise', 49.99, 80, './image/boubou.png', 'BOUBOU001', TRUE, 3, 2, NOW(), NOW()),
+            ('Robe Parisienne', 'Robe pour sorties', 69.99, 35, './image/robe_parisienne.png', 'ROBE002', TRUE, 4, 2, NOW(), NOW());
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

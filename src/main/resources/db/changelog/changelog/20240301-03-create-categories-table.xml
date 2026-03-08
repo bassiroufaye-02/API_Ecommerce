@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
+
+    <changeSet id="create-categories-table" author="ecommerce-api">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="categories"/>
+            </not>
+        </preConditions>
+        <createTable tableName="categories">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="TEXT"/>
+            <column name="parent_id" type="BIGINT"/>
+            <column name="store_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint
+                baseTableName="categories"
+                baseColumnNames="parent_id"
+                referencedTableName="categories"
+                referencedColumnNames="id"
+                constraintName="fk_categories_parent"
+                onDelete="SET NULL"/>
+
+        <addForeignKeyConstraint
+                baseTableName="categories"
+                baseColumnNames="store_id"
+                referencedTableName="stores"
+                referencedColumnNames="id"
+                constraintName="fk_categories_store"
+                onDelete="CASCADE"/>
+
+        <createIndex tableName="categories" indexName="idx_categories_store">
+            <column name="store_id"/>
+        </createIndex>
+
+        <createIndex tableName="categories" indexName="idx_categories_parent">
+            <column name="parent_id"/>
+        </createIndex>
+    </changeSet>
+
+</databaseChangeLog>
