@@ -1,4 +1,4 @@
-# Faye_Bassirou_M1_API_Ecommerce
+﻿# Faye_Bassirou_M1_API_Ecommerce
 
 ## Objectif
 API REST professionnelle pour une plateforme e-commerce multi-boutiques. Architecture propre, securite, documentation Swagger, tests et migrations BD.
@@ -142,7 +142,7 @@ spring.datasource.password=your_password
 ```bash
 mvn spring-boot:run
 ```
-Swagger : `http://localhost:8080/swagger-ui.html`
+Swagger : `http://localhost:8080/swagger-ui/index.html`
 
 ## Déploiement Docker (recommandé)
 Pré-requis : Docker + Docker Compose.
@@ -160,6 +160,37 @@ Notes :
 - La base MySQL est dans le service `mysql` (pas `localhost`).
 - Profil Spring utilisé : `docker` (fichier `application-docker.properties`).
 - Uploads persistés dans le volume `uploads`.
+
+## CI/CD (GitHub Actions + Docker Hub)
+### CI (tests automatiques)
+Le workflow `CI` lance les tests à chaque `push`/`pull_request`.
+
+Verification :
+1. GitHub → onglet **Actions**
+2. Cliquer sur **CI**
+3. Ouvrir la dernière exécution pour voir les logs
+
+### CD (build + push image Docker)
+Le workflow `CD` construit et pousse l’image Docker à chaque `push` sur `main`.
+
+Pre-requis (secrets GitHub) :
+- `DOCKER_USERNAME`
+- `DOCKER_PASSWORD` (token Docker Hub)
+
+Verification :
+1. GitHub → **Actions** → **CD**
+2. Verifier le statut "Success"
+3. Docker Hub : image `bassirou02/api_ecommerce:latest`
+
+Pull manuel de l’image :
+```bash
+docker pull bassirou02/api_ecommerce:latest
+```
+
+Lancer l’image seule (sans MySQL) :
+```bash
+docker run -p 8080:8080 bassirou02/api_ecommerce:latest
+```
 
 ## Comptes de demo (si DataInitializer actif)
 - admin / password
@@ -259,7 +290,7 @@ Uploader une image (STORE_OWNER/ADMIN):
 ```powershell
 curl -X POST "http://localhost:8080/api/uploads" `
   -H "Authorization: Bearer <TOKEN>" `
-  -F "file=@C:\\chemin\\vers\\itelA70.jpg"
+  -F "file=@C:\chemin\vers\itelA70.jpg"
 ```
 - Curl (Linux/Mac):
 ```bash
@@ -315,12 +346,7 @@ mvn test
 mvn test jacoco:report
 ```
 
-
-
 ## Livrables
 - Code source complet (dossier : Faye_Bassirou_M1_API_Ecommerce)
 - Documentation Swagger + README + schema BD
-
 - Tests
-#   A P I _ E c o m m e r c e  
- 
