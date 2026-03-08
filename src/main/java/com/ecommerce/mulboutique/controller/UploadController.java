@@ -1,4 +1,4 @@
-﻿package com.ecommerce.mulboutique.controller;
+package com.ecommerce.mulboutique.controller;
 
 import com.ecommerce.mulboutique.dto.UploadRequest;
 import io.swagger.v3.oas.annotations.Operation;

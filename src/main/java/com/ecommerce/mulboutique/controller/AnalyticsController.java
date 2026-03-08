@@ -1,4 +1,4 @@
-﻿package com.ecommerce.mulboutique.controller;
+package com.ecommerce.mulboutique.controller;
 
 import com.ecommerce.mulboutique.dto.analytics.AnalyticsResponse;
 import com.ecommerce.mulboutique.entity.Store;

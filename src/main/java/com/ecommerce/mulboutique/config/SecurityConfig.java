@@ -1,4 +1,4 @@
-﻿package com.ecommerce.mulboutique.config;
+package com.ecommerce.mulboutique.config;
 
 import com.ecommerce.mulboutique.security.CustomUserDetailsService;
 import com.ecommerce.mulboutique.security.JwtAuthenticationEntryPoint;
