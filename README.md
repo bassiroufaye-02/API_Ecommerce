@@ -110,7 +110,8 @@ products (1) --< reviews (N)
 orders (1) --< reviews (N)
 ```
 
-Schema BD (PNG) : `docs/schema-bd.png`
+Schema BD (PDF) : `schema base de donné/Schéma de BD.pdf`
+Autres schemas : `schema base de donné/MCD.png`, `schema base de donné/MPD.png`, `schema base de donné/DIAGRAMME DE CLASSE.png`
 
 ### Tables principales
 - users
@@ -364,4 +365,3 @@ mvn test jacoco:report
 - Code source complet (dossier: Faye_Bassirou_M1_API_Ecommerce)
 - Documentation Swagger + README + schema BD
 - Tests
-
