@@ -361,6 +361,11 @@ Invoke-RestMethod -Method Get -Uri http://localhost:8080/api/v1/stores/my-stores
 mvn test
 mvn test jacoco:report
 ```
+Couverture JaCoCo (derniere execution le 09/03/2026) :
+- Instruction coverage : 43.48%
+- Line coverage : 48.69%
+- Branch coverage : 24.36%
+- Method coverage : 69.70%
 
 ## Livrables
 - Code source complet (dossier: Faye_Bassirou_M1_API_Ecommerce)
