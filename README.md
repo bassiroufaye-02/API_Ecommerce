@@ -112,6 +112,7 @@ orders (1) --< reviews (N)
 
 Schema BD (PDF) : `schema base de donné/Schéma de BD.pdf`
 Autres schemas : `schema base de donné/MCD.png`, `schema base de donné/MPD.png`, `schema base de donné/DIAGRAMME DE CLASSE.png`
+Note : le dossier s'appelle exactement `schema base de donné` (avec accents et espaces). Sur certains systèmes, l'encodage peut apparaître différemment mais le nom réel contient bien les accents.
 
 ### Tables principales
 - users
