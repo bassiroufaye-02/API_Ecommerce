@@ -102,7 +102,7 @@ public class StoreController {
     }
 
     @GetMapping("/my-stores")
-    @PreAuthorize("hasRole('STORE_OWNER')")
+    @PreAuthorize("hasAnyRole('STORE_OWNER','ADMIN')")
     @Operation(summary = "Mes boutiques", description = "Retourne les boutiques du propriÃ©taire connectÃ©")
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "Liste des boutiques rÃ©cupÃ©rÃ©e avec succÃ¨s"),

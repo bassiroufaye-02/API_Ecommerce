@@ -29,7 +29,7 @@ public class OrderController {
     private CurrentUserService currentUserService;
 
     @PostMapping("/api/v1/clients/orders")
-    @PreAuthorize("hasRole('CLIENT')")
+    @PreAuthorize("hasAnyRole('CLIENT','ADMIN')")
     @Operation(summary = "Passer une commande")
     public ResponseEntity<OrderDto> createOrder(@Valid @RequestBody CreateOrderRequest request) {
         User user = currentUserService.getCurrentUser();
@@ -38,7 +38,7 @@ public class OrderController {
     }
 
     @GetMapping("/api/v1/clients/orders")
-    @PreAuthorize("hasRole('CLIENT')")
+    @PreAuthorize("hasAnyRole('CLIENT','ADMIN')")
     @Operation(summary = "Lister mes commandes")
     public ResponseEntity<List<OrderDto>> getMyOrders() {
         User user = currentUserService.getCurrentUser();

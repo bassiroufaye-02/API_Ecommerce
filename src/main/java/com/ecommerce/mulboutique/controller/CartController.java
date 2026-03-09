@@ -26,7 +26,7 @@ public class CartController {
     private CurrentUserService currentUserService;
 
     @GetMapping
-    @PreAuthorize("hasRole('CLIENT')")
+    @PreAuthorize("hasAnyRole('CLIENT','ADMIN')")
     @Operation(summary = "Voir le panier")
     public ResponseEntity<CartDto> getCart(@RequestParam Long storeId) {
         User user = currentUserService.getCurrentUser();
@@ -35,7 +35,7 @@ public class CartController {
     }
 
     @PostMapping("/items")
-    @PreAuthorize("hasRole('CLIENT')")
+    @PreAuthorize("hasAnyRole('CLIENT','ADMIN')")
     @Operation(summary = "Ajouter un produit au panier")
     public ResponseEntity<CartDto> addItem(@Valid @RequestBody AddToCartRequest request) {
         User user = currentUserService.getCurrentUser();
@@ -43,7 +43,7 @@ public class CartController {
     }
 
     @PutMapping("/items/{itemId}")
-    @PreAuthorize("hasRole('CLIENT')")
+    @PreAuthorize("hasAnyRole('CLIENT','ADMIN')")
     @Operation(summary = "Mettre Ã  jour un item du panier")
     public ResponseEntity<CartDto> updateItem(@PathVariable Long itemId, @Valid @RequestBody UpdateCartItemRequest request) {
         User user = currentUserService.getCurrentUser();
@@ -51,7 +51,7 @@ public class CartController {
     }
 
     @DeleteMapping("/items/{itemId}")
-    @PreAuthorize("hasRole('CLIENT')")
+    @PreAuthorize("hasAnyRole('CLIENT','ADMIN')")
     @Operation(summary = "Supprimer un item du panier")
     public ResponseEntity<CartDto> removeItem(@PathVariable Long itemId) {
         User user = currentUserService.getCurrentUser();
@@ -59,7 +59,7 @@ public class CartController {
     }
 
     @DeleteMapping("/clear")
-    @PreAuthorize("hasRole('CLIENT')")
+    @PreAuthorize("hasAnyRole('CLIENT','ADMIN')")
     @Operation(summary = "Vider le panier")
     public ResponseEntity<CartDto> clearCart(@RequestParam Long storeId) {
         User user = currentUserService.getCurrentUser();
